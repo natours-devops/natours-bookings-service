@@ -1,7 +1,20 @@
 FROM node:22-alpine
+
 WORKDIR /app
+
+# Copy dependency files first for better layer caching
 COPY package*.json ./
+
+# Install production dependencies only
 RUN npm ci --omit=dev
-COPY . .
+
+# Run as non-root user
+USER node
+
+# Copy application source
+COPY --chown=node:node . . 
+
+
 EXPOSE 3004
+
 CMD ["node", "server.js"]
