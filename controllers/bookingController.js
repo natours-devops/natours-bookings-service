@@ -57,6 +57,7 @@ exports.confirmBooking = catchAsync(async (req, res, next) => {
 
   const booking = await Booking.create({ tour, user: req.user.id, price });
 
+  console.log(req.headers["x-user-email"]);
   // Fire-and-forget: publish to SQS for notification
   publishBookingConfirmed({
     bookingId: booking._id,
