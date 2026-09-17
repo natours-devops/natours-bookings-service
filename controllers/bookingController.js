@@ -6,8 +6,7 @@ const AppError = require("../utils/appError");
 const factory = require("./handlerFactory");
 const { publishBookingConfirmed } = require("../utils/sqsPublisher");
 
-const TOUR_SERVICE_URL =
-  process.env.TOUR_SERVICE_URL || "http://localhost:3002";
+const TOUR_SERVICE_URL = process.env.TOUR_SERVICE_URL;
 
 exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   // Fetch tour from Tour Service
