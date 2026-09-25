@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 const bookingRouter = require('./routes/bookingRoutes');
+const healthCheck = require('./utils/healthCheck');
 
 const app = express();
 
@@ -19,6 +20,8 @@ app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(cookieParser());
 app.use(mongoSanitize());
 app.use(xss());
+
+app.get('/health', healthCheck('booking-service'));
 
 app.use('/api/v1/bookings', bookingRouter);
 
